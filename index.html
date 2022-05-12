@@ -5,22 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="memory.css" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@700&family=Press+Start+2P&display=swap" rel="stylesheet">
     <script
       src="https://kit.fontawesome.com/745769014b.js"
       crossorigin="anonymous"
     ></script>
+
     <title>Memory Game</title>
   </head>
   <body>
     <div id="boardContainer">
       <h1 id="win" class="hidden">CONGRATS!🎓</h1>
       <h1 id="lose" class="hidden">GAME OVER💩</h1>
+      <h1 id="stage" class="hidden"></h1>
       <div class="board"></div>
       <div class="bottomSection">
         <div id="apples">
@@ -47,6 +46,9 @@
         <div class="timer">
           <div class= "display">
             <h2 class= "display_time-left"></h2>
+          </div>
+          <div class="meter">
+          	<span style="width: 90%"></span>
           </div>
         </div>
       </div>

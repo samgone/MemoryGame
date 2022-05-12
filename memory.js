@@ -4,12 +4,14 @@ const apples = document.querySelectorAll('.fa-apple-whole');
 const resetButton = document.getElementById('resetButton');
 const winDisplay = document.getElementById('win');
 const loseDisplay = document.getElementById('lose');
+const stageDisplay = document.getElementById('stage');
 const timerDisplay = document.querySelector('.display_time-left');
 const TIMELEFT = 10;
 const lastStage = 5;
 let stage = 0;
 let AMOUNT = 4;
 let blockInput = true;
+let blockButton = false;
 let gameArray = [];
 let pressed = [];
 let countdown;
@@ -18,12 +20,13 @@ let countdown;
 function hideArray() {
   board.innerHTML = '';
   blockInput = false;
+  blockButton = false;
+  resetButton.classList.remove('disabled');
   timer(TIMELEFT);
 }
 
 // function that displays it
 function displayArray() {
-  blockInput = true;
   const gameArraytoString = gameArray.join('');
   board.innerHTML = gameArraytoString;
   setTimeout(hideArray, 5000);
@@ -44,15 +47,23 @@ function reset() {
   winDisplay.classList.remove('show');
   loseDisplay.classList.remove('show');
   removeApples();
-  createArray();
-  displayArray();
   clearInterval(countdown);
   displayTimeLeft(0);
+  createArray();
 }
 
 // GameOver function
 function gameOver() {
   loseDisplay.classList.add('show');
+  clearInterval(countdown);
+}
+
+function showStageDivider() {
+  blockInput = true;
+  blockButton = true;
+  resetButton.classList.add('disabled');
+  stageDisplay.innerHTML = `Stage ${stage + 1} 🎉`;
+  stageDisplay.classList.add('show');
 }
 
 // function that chooses the game stage
@@ -70,9 +81,14 @@ function stageProgression() {
       } else {
         stage += 1;
         AMOUNT += 2;
+        showStageDivider();
         displayTimeLeft(0);
         removeApples();
-        createArray();
+        clearInterval(countdown);
+        setTimeout(() => {
+          stageDisplay.classList.remove('show');
+          createArray();
+        }, 3000);
       }
     } else {
       gameOver();
@@ -91,6 +107,11 @@ function createArray() {
     randomArray.forEach((element, index) => {
       gameArray[index] = base[element];
     });
+    showStageDivider();
+    setTimeout(() => {
+      stageDisplay.classList.remove('show');
+      displayArray();
+    }, 3000);
   } else {
     const randomArray = Array.from({ length: 2 }, () =>
       Math.floor(Math.random() * 4)
@@ -117,10 +138,12 @@ function timer(seconds) {
       displayTimeLeft(0);
       return;
     }
+    if (secondsLeft === 0) {
+      gameOver();
+    }
     // display it
     displayTimeLeft(secondsLeft);
   }, 1000);
-  console.log(countdown);
 }
 
 function displayTimeLeft(seconds) {
@@ -129,13 +152,11 @@ function displayTimeLeft(seconds) {
   const display = `${minutes}:${
     remainderSeconds < 10 ? '0' : ''
   }${remainderSeconds}`;
-  document.title = display;
   timerDisplay.textContent = display;
 }
 // timer
 
 displayTimeLeft(0);
-createArray();
 
 window.addEventListener('keydown', (e) => {
   const { key } = e;
@@ -163,10 +184,25 @@ window.addEventListener('keydown', (e) => {
 
   pressed.forEach((event, index) => {
     apples[index].classList.add('apple');
-    console.log(apples);
   });
 
   stageProgression();
 });
 
-resetButton.addEventListener('click', reset);
+resetButton.addEventListener('click', () => {
+  if (blockButton === false) {
+    reset();
+  }
+});
+
+$('.meter > span').each(function () {
+  $(this)
+    .data('origWidth', $(this).width())
+    .width(0)
+    .animate(
+      {
+        width: $(this).data('origWidth'),
+      },
+      1200
+    );
+});
