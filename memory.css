@@ -1,5 +1,6 @@
 body {
-  background: #dce1de;
+  background-color: #dce1de;
+  background-image: url("https://www.transparenttextures.com/patterns/beige-paper.png");
 }
 
 #boardContainer {
@@ -11,6 +12,10 @@ body {
 }
 
 .board {
+  font-family: "BIZ UDGothic", sans-serif;
+  color: white;
+  font-size: 3rem;
+  letter-spacing: 1.5rem;
   background: #49a078;
   border: 10px solid #132a13;
   border-radius: 5px;
@@ -19,12 +24,18 @@ body {
   padding: 20px;
   font-size: 30px;
   overflow-wrap: anywhere;
+  position: relative;
+  z-index: 0;
 }
 
 .hidden {
   display: none;
+  position: absolute;
+  top: 150px;
+  margin: auto 0;
   color: white;
   text-align: center;
+  z-index: 1;
 }
 
 .show {
@@ -41,18 +52,27 @@ body {
   color: #dce1de;
   background-color: #216869;
   margin: 10px 0px;
-  max-height: 50px;
+  height: 40px;
   flex-basis: 30%;
 }
 
 #apples {
   flex-basis: 30%;
   margin: 10px 0px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
+
 i.fa-apple-whole {
   padding: 0 2px;
   color: #cd6161;
   font-size: 20px;
+  display: none;
+}
+
+i.fa-apple-whole.apple {
+  display: flex;
 }
 
 #timer {

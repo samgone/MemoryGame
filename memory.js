@@ -1,8 +1,10 @@
+/* eslint-disable no-use-before-define */
 const board = document.querySelector('.board');
+const apples = document.querySelectorAll('.fa-apple-whole');
 const resetButton = document.getElementById('resetButton');
 const winDisplay = document.getElementById('win');
 const loseDisplay = document.getElementById('lose');
-
+const lastStage = 5;
 let stage = 0;
 let AMOUNT = 4;
 let blockInput = true;
@@ -18,9 +20,15 @@ function hideArray() {
 // function that displays it
 function displayArray() {
   blockInput = true;
-  gameArraytoString = gameArray.join('');
+  const gameArraytoString = gameArray.join('');
   board.innerHTML = gameArraytoString;
   setTimeout(hideArray, 5000);
+}
+
+function removeApples() {
+  apples.forEach((e) => {
+    e.classList.remove('apple');
+  });
 }
 
 // function for reset
@@ -29,6 +37,9 @@ function reset() {
   pressed = [];
   stage = 0;
   AMOUNT = 4;
+  winDisplay.classList.remove('show');
+  loseDisplay.classList.remove('show');
+  removeApples();
   createArray();
   displayArray();
 }
@@ -36,18 +47,19 @@ function reset() {
 // function that chooses the game stage
 function stageProgression(e) {
   if (pressed.length === gameArray.length) {
-    gameArraytoString = gameArray.join('');
-    pressedtoString = pressed.join('');
+    const gameArraytoString = gameArray.join('');
+    const pressedtoString = pressed.join('');
 
     // check if win
     if (gameArraytoString === pressedtoString) {
       console.log('stage complete');
       // check if it's the stage 5
-      if (stage === 5) {
+      if (stage === lastStage) {
         winDisplay.classList.add('show');
       } else {
         stage += 1;
         AMOUNT += 2;
+        removeApples();
         createArray();
       }
     } else {
@@ -62,7 +74,7 @@ function stageProgression(e) {
 
 // function that creates random stage array
 function createArray() {
-  const base = ['➡️', '⬅️', '⬆️', '⬇️'];
+  const base = ['→', '←', '↑', '↓'];
   if (AMOUNT === 4) {
     const randomArray = Array.from({ length: AMOUNT }, () =>
       Math.floor(Math.random() * 4)
@@ -86,25 +98,33 @@ createArray();
 
 window.addEventListener('keydown', (e) => {
   const { key } = e;
-  if (blockInput == true) return;
+  if (blockInput === true) return;
   switch (key) {
     case 'ArrowLeft':
-      pressed.push('⬅️');
+      pressed.push('←');
       e.preventDefault();
       break;
     case 'ArrowRight':
-      pressed.push('➡️');
+      pressed.push('→');
       e.preventDefault();
       break;
     case 'ArrowUp':
-      pressed.push('⬆️');
+      pressed.push('↑');
       e.preventDefault();
       break;
     case 'ArrowDown':
-      pressed.push('⬇️');
+      pressed.push('↓');
       e.preventDefault();
       break;
+    default:
+      break;
   }
+
+  pressed.forEach((event, index, array) => {
+    apples[index].classList.add('apple');
+    console.log(apples);
+  });
+
   stageProgression();
 });
 
