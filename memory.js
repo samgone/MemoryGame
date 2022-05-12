@@ -6,6 +6,7 @@ const winDisplay = document.getElementById('win');
 const loseDisplay = document.getElementById('lose');
 const stageDisplay = document.getElementById('stage');
 const timerDisplay = document.querySelector('.display_time-left');
+const meter = document.getElementById('meter');
 const TIMELEFT = 10;
 const lastStage = 5;
 let stage = 0;
@@ -22,7 +23,9 @@ function hideArray() {
   blockInput = false;
   blockButton = false;
   resetButton.classList.remove('disabled');
+  meter.style.width = '90%';
   timer(TIMELEFT);
+  console.log(gameArray);
 }
 
 // function that displays it
@@ -74,10 +77,10 @@ function stageProgression() {
 
     // check if win
     if (gameArraytoString === pressedtoString) {
-      console.log('stage complete');
       // check if it's the stage 5
       if (stage === lastStage) {
         winDisplay.classList.add('show');
+        clearInterval(countdown);
       } else {
         stage += 1;
         AMOUNT += 2;
@@ -124,7 +127,6 @@ function createArray() {
 }
 
 // timer
-
 function timer(seconds) {
   const now = Date.now();
   const then = now + seconds * 1000;
@@ -153,10 +155,13 @@ function displayTimeLeft(seconds) {
     remainderSeconds < 10 ? '0' : ''
   }${remainderSeconds}`;
   timerDisplay.textContent = display;
+
+  meter.style.width = `${9 * remainderSeconds}%`;
 }
 // timer
 
 displayTimeLeft(0);
+meter.style.width = '0%';
 
 window.addEventListener('keydown', (e) => {
   const { key } = e;
@@ -193,16 +198,4 @@ resetButton.addEventListener('click', () => {
   if (blockButton === false) {
     reset();
   }
-});
-
-$('.meter > span').each(function () {
-  $(this)
-    .data('origWidth', $(this).width())
-    .width(0)
-    .animate(
-      {
-        width: $(this).data('origWidth'),
-      },
-      1200
-    );
 });
