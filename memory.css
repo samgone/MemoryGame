@@ -54,6 +54,7 @@ body {
 
 .bottomSection {
   width: 70%;
+  height: 200px;
   display: flex;
   justify-content: space-between;
 }
@@ -76,6 +77,7 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  height: 30px;
 }
 
 i.fa-apple-whole {
@@ -96,7 +98,7 @@ i.fa-apple-whole.apple {
   flex-basis: 30%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
 }
 
 .display {
@@ -188,7 +190,11 @@ i.fa-apple-whole.apple {
   }
 }
 
-@media all and (max-width: 650px) {
+.controls {
+  display: none;
+}
+
+@media all and (max-width: 500px) {
   #boardContainer {
     padding: 0px;
     margin: 20px 0px;
@@ -202,5 +208,42 @@ i.fa-apple-whole.apple {
 
   h1 {
     font-size: 25px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .bottomSection {
+    max-height: 150px;
+  }
+
+  #up {
+    grid-area: up;
+  }
+  #down {
+    grid-area: down;
+  }
+  #left {
+    grid-area: left;
+  }
+  #right {
+    grid-area: right;
+  }
+
+  .controls {
+    display: grid;
+    grid-template-columns: 60px 60px 60px;
+    grid-template-rows: 60px 60px 60px;
+    grid-template-areas:
+      ". up ."
+      "left . right"
+      ". down .";
+  }
+
+  .controls button {
+    font-size: 60px;
+    border: none;
+    background: none;
   }
 }

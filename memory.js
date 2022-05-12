@@ -7,6 +7,10 @@ const loseDisplay = document.getElementById('lose');
 const stageDisplay = document.getElementById('stage');
 const timerDisplay = document.querySelector('.display_time-left');
 const meter = document.getElementById('meter');
+const up = document.getElementById('up');
+const left = document.getElementById('left');
+const right = document.getElementById('right');
+const down = document.getElementById('down');
 const TIMELEFT = 10;
 const lastStage = 5;
 let stage = 0;
@@ -25,7 +29,6 @@ function hideArray() {
   resetButton.classList.remove('disabled');
   meter.style.width = '90%';
   timer(TIMELEFT);
-  console.log(gameArray);
 }
 
 // function that displays it
@@ -148,6 +151,7 @@ function timer(seconds) {
   }, 1000);
 }
 
+// displays timer and meter
 function displayTimeLeft(seconds) {
   const minutes = Math.floor(seconds / 60);
   const remainderSeconds = seconds % 60;
@@ -158,7 +162,13 @@ function displayTimeLeft(seconds) {
 
   meter.style.width = `${9 * remainderSeconds}%`;
 }
-// timer
+
+// adds apples
+function appleDisplay() {
+  pressed.forEach((event, index) => {
+    apples[index].classList.add('apple');
+  });
+}
 
 displayTimeLeft(0);
 meter.style.width = '0%';
@@ -187,9 +197,7 @@ window.addEventListener('keydown', (e) => {
       break;
   }
 
-  pressed.forEach((event, index) => {
-    apples[index].classList.add('apple');
-  });
+  appleDisplay();
 
   stageProgression();
 });
@@ -198,4 +206,30 @@ resetButton.addEventListener('click', () => {
   if (blockButton === false) {
     reset();
   }
+});
+
+// mobil keys
+up.addEventListener('click', () => {
+  if (blockInput === true) return;
+  pressed.push('↑');
+  appleDisplay();
+  stageProgression();
+});
+down.addEventListener('click', () => {
+  if (blockInput === true) return;
+  pressed.push('↓');
+  appleDisplay();
+  stageProgression();
+});
+left.addEventListener('click', () => {
+  if (blockInput === true) return;
+  pressed.push('←');
+  appleDisplay();
+  stageProgression();
+});
+right.addEventListener('click', () => {
+  if (blockInput === true) return;
+  pressed.push('→');
+  appleDisplay();
+  stageProgression();
 });
