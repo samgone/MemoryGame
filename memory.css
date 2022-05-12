@@ -77,6 +77,6 @@ i.fa-apple-whole.apple {
   display: flex;
 }
 
-#timer {
+.timer {
   flex-basis: 30%;
 }
