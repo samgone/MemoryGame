@@ -45,7 +45,7 @@ function reset() {
 }
 
 // function that chooses the game stage
-function stageProgression(e) {
+function stageProgression() {
   if (pressed.length === gameArray.length) {
     const gameArraytoString = gameArray.join('');
     const pressedtoString = pressed.join('');
@@ -69,8 +69,6 @@ function stageProgression(e) {
     pressed = [];
   }
 }
-
-// function for winning
 
 // function that creates random stage array
 function createArray() {
@@ -120,7 +118,7 @@ window.addEventListener('keydown', (e) => {
       break;
   }
 
-  pressed.forEach((event, index, array) => {
+  pressed.forEach((event, index) => {
     apples[index].classList.add('apple');
     console.log(apples);
   });
