@@ -187,3 +187,20 @@ i.fa-apple-whole.apple {
     background-position: 50px 50px;
   }
 }
+
+@media all and (max-width: 650px) {
+  #boardContainer {
+    padding: 0px;
+    margin: 20px 0px;
+    width: 100%;
+  }
+
+  .board {
+    width: 90%;
+    margin: 0px;
+  }
+
+  h1 {
+    font-size: 25px;
+  }
+}
