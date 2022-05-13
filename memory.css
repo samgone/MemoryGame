@@ -194,7 +194,7 @@ i.fa-apple-whole.apple {
   display: none;
 }
 
-@media all and (max-width: 640px) {
+@media all and (max-width: 768px) {
   #boardContainer {
     padding: 0px;
     margin: 20px 0px;
