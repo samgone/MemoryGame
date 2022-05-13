@@ -1,4 +1,7 @@
 /* eslint-disable no-use-before-define */
+// eslint-disable-next-line no-undef
+const jsConfetti = new JSConfetti();
+
 const board = document.querySelector('.board');
 const apples = document.querySelectorAll('.fa-apple-whole');
 const resetButton = document.getElementById('resetButton');
@@ -29,6 +32,7 @@ function hideArray() {
   resetButton.classList.remove('disabled');
   meter.style.width = '90%';
   timer(TIMELEFT);
+  console.log(gameArray);
 }
 
 // function that displays it
@@ -62,6 +66,7 @@ function reset() {
 function gameOver() {
   loseDisplay.classList.add('show');
   clearInterval(countdown);
+  jsConfetti.addConfetti({ emojis: ['💩'] });
 }
 
 function showStageDivider() {
@@ -84,6 +89,7 @@ function stageProgression() {
       if (stage === lastStage) {
         winDisplay.classList.add('show');
         clearInterval(countdown);
+        jsConfetti.addConfetti({ emojis: ['🎉', '🎓', '🥳'] });
       } else {
         stage += 1;
         AMOUNT += 2;
