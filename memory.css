@@ -62,6 +62,7 @@ body {
 #resetButton {
   color: #dce1de;
   background: #4f86c6;
+  border: 2px solid #132a13;
   margin: 10px 0px;
   height: 40px;
   flex-basis: 30%;
